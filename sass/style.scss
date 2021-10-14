@@ -105,6 +105,16 @@ body {
 /* Post */
 
 .post {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+/*
+
+.post {
   position: absolute;
   opacity: 0;
   margin-right: 40px;
@@ -113,14 +123,6 @@ body {
   &.active {
     opacity: 1;
     transition: all 1s;
-  }
-}
-
-/*
-.post {
-  display: none;
-  &.active {
-    display: block;
   }
 }
 */
