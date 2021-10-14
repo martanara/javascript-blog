@@ -41,8 +41,9 @@
 
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
-    optTitleListSelector = '.titles';
-    optArticleTagsSelector = '.post-tags .list';
+    optTitleListSelector = '.titles',
+    optArticleTagsSelector = '.post-tags .list',
+    optArticleAuthorsSelector = '.post-author';
 
   const generateTitleLinks = function(customSelector = ''){
 
@@ -209,4 +210,49 @@
 
   addClickListenersToTags();
 
+  const generateAuthors = function(){
+
+    /* find all articles */
+
+    const articles = document.querySelectorAll(optArticleSelector);
+
+    /* START LOOP: for every article: */
+
+    for(let article of articles){
+
+      /* find author wrapper */
+
+      const authorWrapper = article.querySelector(optArticleAuthorsSelector);
+
+      /* make html variable with empty string */
+
+      let linkHtml = '';
+
+      /* get author from data-author attribute */
+
+      const authorName = article.getAttribute('data-author');
+
+      /* generate author name html link */
+
+      linkHtml = 'by <a href="#' + authorName + '"><span>' + authorName + '</span></a>';
+
+      /* insert the link into the author wrapper */
+
+      authorWrapper.insertAdjacentHTML('afterbegin', linkHtml);
+
+      /* END LOOP: for every article: */
+    }
+  };
+
+  generateAuthors();
+
+
+
 }
+
+
+/*
+
+<li><a href="#"><span class="author-name">Kitty Toebean</span></a></li>
+
+*/
