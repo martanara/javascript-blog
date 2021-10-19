@@ -106,7 +106,7 @@
       console.log(tag + ' is used ' + tags[tag] + ' times');
 
       params.max = Math.max(tags[tag], params.max);
-      params.min = Math.min(tags[tag], params.max);
+      params.min = Math.min(tags[tag], params.min);
     }
 
     return params;
@@ -121,7 +121,7 @@
   };
 
   const generateTags = function (){
-    /* [NEW] create a new variable allTags with an empty object */
+    /* Create a new variable allTags with an empty object */
     let allTags = {};
 
     /* find all articles */
@@ -157,10 +157,10 @@
 
         html = html + linkHtml;
 
-        /* [NEW] check if this tag is NOT already in allTags */
+        /* Check if this tag is NOT already in allTags */
 
         if(!allTags[tag]) {
-          /* [NEW] add tag to allTags array */
+          /* Add tag to allTags array */
           allTags[tag] = 1;
         } else {
           allTags[tag]++;
@@ -175,23 +175,23 @@
     /* END LOOP: for every article: */
     }
 
-    /* [NEW] find list of tags in right column */
+    /* Find list of tags in right column */
     const tagList = document.querySelector('.tags');
 
     const tagsParams = calculateTagsParams(allTags);
 
-    /* [NEW] create variable for all links HTML code */
+    /* Create variable for all links HTML code */
     let allTagsHTML = '';
 
-    /* [NEW] START LOOP: for each tag in allTags: */
+    /* START LOOP: for each tag in allTags: */
     for(let tag in allTags){
-      /* [NEW] generate code of a link and add it to allTagsHTML */
+      /* Generate code of a link and add it to allTagsHTML */
       allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + calculateTagClass(allTags[tag], tagsParams) + '">' + tag + '</a></li>';
 
-      /* [NEW] END LOOP: for each tag in allTags: */
+      /* END LOOP: for each tag in allTags: */
     }
 
-    /*[NEW] add HTML from allTagsHTML to tagList */
+    /* Add HTML from allTagsHTML to tagList */
     tagList.innerHTML = allTagsHTML;
 
   };
@@ -268,7 +268,7 @@
   addClickListenersToTags();
 
   const generateAuthors = function(){
-    /* [NEW] create a new variable allTags with an empty object */
+    /* Create a new variable allTags with an empty object */
     let allAuthors = {};
 
     /* find all articles */
@@ -309,21 +309,21 @@
       /* END LOOP: for every article: */
     }
 
-    /* [NEW] find list of authors in right column */
+    /* Find list of authors in right column */
     const authorList = document.querySelector('.authors');
 
-    /* [NEW] create variable for all links HTML code */
+    /* Create variable for all links HTML code */
     let allAuthorsHTML = '';
 
-    /* [NEW] START LOOP: for each tag in allTags: */
+    /* START LOOP: for each tag in allTags: */
     for(let author in allAuthors){
-      /* [NEW] generate code of a link and add it to allTagsHTML */
+      /* Generate code of a link and add it to allTagsHTML */
       allAuthorsHTML += '<li><a href="#author-' + author + '" class="author-name">' + author + '</a></li>' + '(' + allAuthors[author] + ')';
 
-      /* [NEW] END LOOP: for each author in allAuthors: */
+      /* END LOOP: for each author in allAuthors: */
     }
 
-    /*[NEW] add HTML from allAuthorsHTML to authorList */
+    /* Add HTML from allAuthorsHTML to authorList */
     authorList.innerHTML = allAuthorsHTML;
   };
 
