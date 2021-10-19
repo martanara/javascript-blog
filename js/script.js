@@ -186,8 +186,8 @@
     /* [NEW] START LOOP: for each tag in allTags: */
     for(let tag in allTags){
       /* [NEW] generate code of a link and add it to allTagsHTML */
-      allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + calculateTagClass(allTags[tag], tagsParams) + '">' + tag + '</a></li>' + '(' + allTags[tag] + ')';
-      console.log(allTagsHTML);
+      allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + calculateTagClass(allTags[tag], tagsParams) + '">' + tag + '</a></li>';
+
       /* [NEW] END LOOP: for each tag in allTags: */
     }
 
@@ -268,6 +268,8 @@
   addClickListenersToTags();
 
   const generateAuthors = function(){
+    /* [NEW] create a new variable allTags with an empty object */
+    let allAuthors = {};
 
     /* find all articles */
 
@@ -297,8 +299,32 @@
 
       authorWrapper.insertAdjacentHTML('afterbegin', linkHtml);
 
+      /* Check if this author is NOT already in allAuthors */
+
+      if(!allAuthors[authorName]) {
+        allAuthors[authorName] = 1;
+      } else {
+        allAuthors[authorName]++;
+      }
       /* END LOOP: for every article: */
     }
+
+    /* [NEW] find list of authors in right column */
+    const authorList = document.querySelector('.authors');
+
+    /* [NEW] create variable for all links HTML code */
+    let allAuthorsHTML = '';
+
+    /* [NEW] START LOOP: for each tag in allTags: */
+    for(let author in allAuthors){
+      /* [NEW] generate code of a link and add it to allTagsHTML */
+      allAuthorsHTML += '<li><a href="#author-' + author + '" class="author-name">' + author + '</a></li>' + '(' + allAuthors[author] + ')';
+
+      /* [NEW] END LOOP: for each author in allAuthors: */
+    }
+
+    /*[NEW] add HTML from allAuthorsHTML to authorList */
+    authorList.innerHTML = allAuthorsHTML;
   };
 
   generateAuthors();
@@ -357,7 +383,7 @@
   const addClickListenersToAuthors = function(){
 
     /* find all links to authors */
-    const authorLinks = document.querySelectorAll('.post-author a');
+    const authorLinks = document.querySelectorAll('.post-author a, .authors a');
 
     /* START LOOP: for each link */
     for(let authorLink of authorLinks){
