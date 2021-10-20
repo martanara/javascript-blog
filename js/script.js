@@ -20,7 +20,7 @@
 
     /* remove class 'active' from all articles */
 
-    const activeArticles = document.querySelectorAll('.posts .active');
+    const activeArticles = document.querySelectorAll(select.all.articles, '.active');
 
     for(let activeArticle of activeArticles){
       activeArticle.classList.remove('active');
@@ -28,30 +28,50 @@
 
     /* get 'href' attribute from the clicked link */
 
-    const articleSelector = clickedElement.getAttribute('href');
+    const clickedArticle = clickedElement.getAttribute('href');
 
     /* find the correct article using the selector (value of 'href' attribute) */
 
-    const targetArticle = document.querySelector(articleSelector);
+    const targetArticle = document.querySelector(clickedArticle);
 
     /* add class 'active' to the correct article */
 
     targetArticle.classList.add('active');
   };
 
-  const optArticleSelector = '.post',
-    optTitleSelector = '.post-title',
-    optTitleListSelector = '.titles',
-    optArticleTagsSelector = '.post-tags .list',
-    optArticleAuthorSelector = '.post-author',
-    optCloudClassCount = 5,
-    optCloudClassPrefix = 'tag-size-';
+  const opts = {
+    tagSizes: {
+      count: 5,
+      classPrefix: 'tag-size-',
+    },
+  };
+
+  const select = {
+    all: {
+      articles: '.post',
+      titles: '.post-title',
+      linksTo: {
+        titles: '.titles a',
+        tags: 'a[href^="#tag-"]',
+        authors: 'a[href^="#author-"]',
+      },
+    },
+    article: {
+      tags: '.post-tags .list',
+      author: '.post-author',
+    },
+    listOf: {
+      titles: '.titles',
+      tags: '.tags.list',
+      authors: '.authors.list',
+    },
+  };
 
   const generateTitleLinks = function(customSelector = ''){
 
     /* remove contents of titleList */
 
-    const titleList = document.querySelector(optTitleListSelector);
+    const titleList = document.querySelector(select.listOf.titles);
 
     const clearList = function(list) {
       list.innerHTML = '';
@@ -59,7 +79,7 @@
 
     clearList(titleList);
 
-    const articles = document.querySelectorAll(optArticleSelector + customSelector);
+    const articles = document.querySelectorAll(select.all.articles + customSelector);
 
     /* for each article */
 
@@ -74,7 +94,7 @@
       /* find the title element */
       /* get the title from the title element */
 
-      const articleTitle = article.querySelector(optTitleSelector).innerHTML;
+      const articleTitle = article.querySelector(select.all.titles).innerHTML;
 
       /* create HTML of the link */
 
@@ -87,7 +107,7 @@
 
     titleList.insertAdjacentHTML('beforeend', html);
 
-    const links = document.querySelectorAll('.titles a');
+    const links = document.querySelectorAll(select.all.linksTo.titles);
 
     for(let link of links){
       link.addEventListener('click', titleClickHandler);
@@ -116,8 +136,8 @@
     const normalizedCount = count - params.min;
     const normalizedMax = params.max - params.min;
     const percentage = normalizedCount / normalizedMax;
-    const classNumber = Math.floor( percentage * (optCloudClassCount - 1) + 1 );
-    return optCloudClassPrefix + classNumber;
+    const classNumber = Math.floor( percentage * (opts.CloudClassCount - 1) + 1 );
+    return opts.CloudClassPrefix + classNumber;
   };
 
   const generateTags = function (){
@@ -126,14 +146,14 @@
 
     /* find all articles */
 
-    const articles = document.querySelectorAll(optArticleSelector);
+    const articles = document.querySelectorAll(select.all.articles);
 
     /* START LOOP: for every article: */
     for(let article of articles){
 
       /* find tags wrapper */
 
-      const tagsWrapper = article.querySelector(optArticleTagsSelector);
+      const tagsWrapper = article.querySelector(select.article.tags);
 
       /* make html variable with empty string */
 
@@ -176,7 +196,7 @@
     }
 
     /* Find list of tags in right column */
-    const tagList = document.querySelector('.tags');
+    const tagList = document.querySelector(select.listOf.tags);
 
     const tagsParams = calculateTagsParams(allTags);
 
@@ -252,7 +272,7 @@
 
   const addClickListenersToTags = function(){
     /* find all links to tags */
-    const tagLinks = document.querySelectorAll('.post-tags .list a, .tags a');
+    const tagLinks = document.querySelectorAll(select.all.linksTo.tags);
 
     /* START LOOP: for each link */
     for(let tagLink of tagLinks){
@@ -273,7 +293,7 @@
 
     /* find all articles */
 
-    const articles = document.querySelectorAll(optArticleSelector);
+    const articles = document.querySelectorAll(select.all.articles);
 
     /* START LOOP: for every article: */
 
@@ -281,7 +301,7 @@
 
       /* find author wrapper */
 
-      const authorWrapper = article.querySelector(optArticleAuthorSelector);
+      const authorWrapper = article.querySelector(select.article.author);
 
       /* make html variable with empty string */
 
@@ -310,7 +330,7 @@
     }
 
     /* Find list of authors in right column */
-    const authorList = document.querySelector('.authors');
+    const authorList = document.querySelector(select.listOf.authors);
 
     /* Create variable for all links HTML code */
     let allAuthorsHTML = '';
@@ -318,7 +338,7 @@
     /* START LOOP: for each tag in allTags: */
     for(let author in allAuthors){
       /* Generate code of a link and add it to allTagsHTML */
-      allAuthorsHTML += '<li><a href="#author-' + author + '" class="author-name">' + author + '</a></li>' + '(' + allAuthors[author] + ')';
+      allAuthorsHTML += '<li><a href="#author-' + author + '" class="author-name">' + author + '</a> (' + allAuthors[author] + ')</li>';
 
       /* END LOOP: for each author in allAuthors: */
     }
@@ -383,7 +403,7 @@
   const addClickListenersToAuthors = function(){
 
     /* find all links to authors */
-    const authorLinks = document.querySelectorAll('.post-author a, .authors a');
+    const authorLinks = document.querySelectorAll(select.all.linksTo.authors);
 
     /* START LOOP: for each link */
     for(let authorLink of authorLinks){
@@ -400,9 +420,3 @@
 
 }
 
-
-/*
-
-<li><a href="#"><span class="author-name">Kitty Toebean</span></a></li>
-
-*/

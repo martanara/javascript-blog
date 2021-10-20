@@ -98,7 +98,7 @@ body {
 
 .tags {
   li {
-    display: inline;
+    display: inline-block;
     margin-right: 5px;
 
     a {
@@ -147,22 +147,27 @@ body {
 
 .tag-size-1 {
   font-size: 70%;
+  color: green;
 }
 
 .tag-size-2 {
   font-size: 100%;
+  color: blue;
 }
 
 .tag-size-3 {
   font-size: 120%;
+  color: purple;
 }
 
 .tag-size-4 {
   font-size: 150%;
+  color: tan;
 }
 
 .tag-size-5 {
   font-size: 230%;
+  color: pink;
 }
 
 .post-tags {
