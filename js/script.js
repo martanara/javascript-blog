@@ -354,11 +354,12 @@
     /* START LOOP: for each tag in allTags: */
     for(let author in allAuthors){
       /* Generate code of a link and add it to allTagsHTML */
-
+      console.log(allAuthorsData);
       allAuthorsData.authors.push({
         author: author,
         count: allAuthors[author],
       });
+      console.log(allAuthorsData);
       /* END LOOP: for each author in allAuthors: */
     }
 

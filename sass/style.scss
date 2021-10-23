@@ -138,6 +138,7 @@ body {
   &.active {
     opacity: 1;
     transition: all 1s;
+    position: relative;
   }
 }
 
